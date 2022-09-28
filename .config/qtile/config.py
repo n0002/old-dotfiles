@@ -78,7 +78,14 @@ keys = [
     Key([mod], "r", lazy.spawncmd(), desc="Spawn a command using a prompt widget"),
 ]
 
-groups = [Group(i) for i in "123456789"]
+groups = [
+            Group(name="1", label=""),
+            Group(name="2", label=""),
+            Group(name="3", label="奈", matches=[Match(wm_class=["mpv"])]),
+            Group(name="4", label="ﭮ",  matches=[Match(wm_class=["discord"])]),
+            Group(name="5", label=""),
+            Group(name="6", label=""),
+        ]
 
 for i in groups:
     keys.extend(
