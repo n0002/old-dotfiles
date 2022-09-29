@@ -41,28 +41,41 @@ keys = [
     # A list of available commands that can be bound to keys can be found
     # at https://docs.qtile.org/en/latest/manual/config/lazy.html
     # Switch between windows
+    
     Key([mod], "h", lazy.layout.left(), desc="Move focus to left"),
     Key([mod], "l", lazy.layout.right(), desc="Move focus to right"),
     Key([mod], "j", lazy.layout.down(), desc="Move focus down"),
     Key([mod], "k", lazy.layout.up(), desc="Move focus up"),
-    Key([mod], "space", lazy.layout.next(), desc="Move window focus to other window"),
+    Key([mod, "shift"], "space", lazy.layout.next(), desc="Move window focus to other window"),
+    
     # Move windows between left/right columns or move up/down in current stack.
     # Moving out of range in Columns layout will create new column.
+    
     Key([mod, "shift"], "h", lazy.layout.shuffle_left(), desc="Move window to the left"),
     Key([mod, "shift"], "l", lazy.layout.shuffle_right(), desc="Move window to the right"),
     Key([mod, "shift"], "j", lazy.layout.shuffle_down(), desc="Move window down"),
     Key([mod, "shift"], "k", lazy.layout.shuffle_up(), desc="Move window up"),
+    
     # Grow windows. If current window is on the edge of screen and direction
     # will be to screen edge - window would shrink.
+    
     Key([mod, "control"], "h", lazy.layout.grow_left(), desc="Grow window to the left"),
     Key([mod, "control"], "l", lazy.layout.grow_right(), desc="Grow window to the right"),
     Key([mod, "control"], "j", lazy.layout.grow_down(), desc="Grow window down"),
     Key([mod, "control"], "k", lazy.layout.grow_up(), desc="Grow window up"),
     Key([mod], "n", lazy.layout.normalize(), desc="Reset all window sizes"),
+    
+    # App Keybinds
+
+    Key([mod], "f", lazy.spawn("firefox")),
+    Key([mod], "d", lazy.spawn("discord")),
+    Key([mod], "s", lazy.spawn("spotify")),
+
     # Toggle between split and unsplit sides of stack.
     # Split = all windows displayed
     # Unsplit = 1 window displayed, like Max layout, but still with
     # multiple stack panes
+    
     Key(
         [mod, "shift"],
         "Return",
@@ -70,21 +83,23 @@ keys = [
         desc="Toggle between split and unsplit sides of stack",
     ),
     Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
+    
     # Toggle between different layouts as defined below
+    
     Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
     Key([mod], "w", lazy.window.kill(), desc="Kill focused window"),
     Key([mod, "control"], "r", lazy.reload_config(), desc="Reload the config"),
     Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
-    Key([mod], "r", lazy.spawncmd(), desc="Spawn a command using a prompt widget"),
+    Key([mod], "space", lazy.spawncmd(), desc="Spawn a command using a prompt widget"),
 ]
 
 groups = [
-            Group(name="1", label=""),
+            Group(name="1", label="",  matches=[Match(wm_class=["firefox"])]),
             Group(name="2", label=""),
-            Group(name="3", label="奈", matches=[Match(wm_class=["mpv"])]),
-            Group(name="4", label="ﭮ",  matches=[Match(wm_class=["discord"])]),
-            Group(name="5", label=""),
-            Group(name="6", label=""),
+      #      Group(name="3", label="奈", matches=[Match(wm_class=["mpv"])]),
+            Group(name="3", label="ﭮ",  matches=[Match(wm_class=["discord"])]),
+            Group(name="4", label="",  matches=[Match(wm_class=["Spotify"])]),
+            Group(name="5", label=""),
         ]
 
 for i in groups:
@@ -114,31 +129,31 @@ for i in groups:
 layouts = [
     layout.Columns(border_focus_stack=["#ffccff", "#ffccff"], border_width=1),
     layout.Max(),
-    # Try more layouts by unleashing below layouts.
-    # layout.Stack(num_stacks=2),
-    # layout.Bsp(),
-    # layout.Matrix(),
-     layout.MonadTall(),
-    # layout.MonadWide(),
-    # layout.RatioTile(),
-    # layout.Tile(),
-    # layout.TreeTab(),
-    # layout.VerticalTile(),
-    # layout.Zoomy(),
+    layout.MonadTall(),
 ]
 
 widget_defaults = dict(
-    font="Overpass Nerd Font",
+    font="Ubuntu Nerd Font",
     fontsize=16,
-    padding=3,
+    padding=4,
 )
+
 extension_defaults = widget_defaults.copy()
 
 screens = [
     Screen(
-        bottom=bar.Bar(
-            [
-                widget.CurrentLayout(),
+         bottom=bar.Bar(
+            [   
+                widget.Sep(
+                        padding=6,
+                        linewidth=0,
+                    ),
+
+                widget.TextBox(
+                        text=" ",
+                        fontsize="16",
+
+                    ),
                 widget.GroupBox(),
                 widget.Prompt(),
                 widget.WindowName(),
