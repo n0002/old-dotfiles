@@ -67,7 +67,7 @@ keys = [
     
     # App Keybinds
 
-    Key([mod], "f", lazy.spawn("firefox")),
+    Key([mod], "f", lazy.spawn("librewolf")),
     Key([mod], "d", lazy.spawn("discord")),
     Key([mod], "s", lazy.spawn("spotify")),
 
@@ -94,7 +94,7 @@ keys = [
 ]
 
 groups = [
-            Group(name="1", label="",  matches=[Match(wm_class=["firefox"])]),
+            Group(name="1", label="",  matches=[Match(wm_class=["firefox", "librewolf"])]),
             Group(name="2", label=""),
       #      Group(name="3", label="奈", matches=[Match(wm_class=["mpv"])]),
             Group(name="3", label="ﭮ",  matches=[Match(wm_class=["discord"])]),
@@ -167,12 +167,20 @@ screens = [
                 widget.Memory(
                     format = '{MemUsed: .0f} /{MemTotal: .0f} {mm}'
                     ),
+               
+                widget.Spacer(
+                    length = 15,
+                    ),
+               
+                widget.TextBox(),
+               
+                widget.Battery(),
                 
                 widget.Spacer(
                     length = 15,
                     ),
 
-                widget.Sep(),
+                widget.TextBox(),
 
                 
                 widget.Spacer(
