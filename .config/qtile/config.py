@@ -65,6 +65,10 @@ keys = [
     Key([mod, "control"], "k", lazy.layout.grow_up(), desc="Grow window up"),
     Key([mod], "n", lazy.layout.normalize(), desc="Reset all window sizes"),
     
+    #Hide Qtile Bar
+
+    Key([mod, "control"], "e", lazy.hide_show_bar("bottom"), desc="Hide Bottom Bar"),
+    
     # App Keybinds
 
     Key([mod], "f", lazy.spawn("librewolf")),
@@ -141,7 +145,7 @@ widget_defaults = dict(
 extension_defaults = widget_defaults.copy()
 
 screens = [
-    Screen(
+        Screen(
          bottom=bar.Bar(
             [   
                 widget.Sep(
