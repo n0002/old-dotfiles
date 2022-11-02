@@ -1,0 +1,6 @@
+configuration {
+	display-drun: "Launch";
+	font: "JetBrainsMono Nerd Font 10";
+	modi: "window,run,drun";
+	show-icons: false;
+}
